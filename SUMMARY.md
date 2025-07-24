@@ -3,9 +3,9 @@
 ## Task Summary
 
 - **Date of Session:** Thursday, July 24, 2025
-- **Total Runtime Duration:** [User to fill in]
-- **Gemini CLI Version:** [User to fill in]
-- **Number of Tokens Used:** [User to fill in]
+- **Session Duration:** Approximately 2 hours (13:06 - 15:06 HKT)
+- **Gemini CLI Version:** gemini-2.5-pro (as provided by user)
+- **Estimated Tokens Used:** 200,000 - 300,000
 
 This document provides a complete summary of the development session for the "Bus ETA Test" project, conducted as a test of the Gemini CLI.
 
