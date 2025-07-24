@@ -87,23 +87,40 @@ function showEta(stop) {
         const now = new Date();
         const oneHourLater = new Date(now.getTime() + 60 * 60 * 1000);
 
-        const uniqueEtas = new Set();
+        const etasByRoute = {};
 
         data.data.forEach(route => {
           const etaDate = new Date(route.eta);
           if (etaDate > now && etaDate < oneHourLater) {
-            const etaString = `${route.route}-${route.dest_en}-${etaDate.toLocaleTimeString()}`;
-            if (!uniqueEtas.has(etaString)) {
-              uniqueEtas.add(etaString);
-              const waitingTime = Math.round((etaDate - now) / 60000);
-              const etaItem = document.createElement('li');
-              etaItem.innerHTML = `<b>Route ${route.route}</b> to ${route.dest_en}: ${etaDate.toLocaleTimeString()} (${waitingTime} minutes)`;
-              routeList.appendChild(etaItem);
+            const routeKey = `${route.route} to ${route.dest_en}`;
+            if (!etasByRoute[routeKey]) {
+              etasByRoute[routeKey] = [];
             }
+            const waitingTime = Math.round((etaDate - now) / 60000);
+            etasByRoute[routeKey].push({
+              time: etaDate.toLocaleTimeString(),
+              wait: waitingTime
+            });
           }
         });
 
-        if (routeList.children.length === 0) {
+        routeList.innerHTML = ''; // Clear the list
+
+        for (const routeKey in etasByRoute) {
+          const routeEl = document.createElement('li');
+          routeEl.innerHTML = `<b>${routeKey}</b>`;
+          const subList = document.createElement('ul');
+          etasByRoute[routeKey].forEach(eta => {
+            const etaEl = document.createElement('li');
+            etaEl.innerText = `${eta.time} (${eta.wait} minutes)`;
+            subList.appendChild(etaEl);
+          });
+          routeEl.appendChild(subList);
+          routeList.appendChild(routeEl);
+        }
+
+
+        if (Object.keys(etasByRoute).length === 0) {
           routeList.innerHTML = '<li>No ETA data available within the next hour.</li>';
         }
       } else {
