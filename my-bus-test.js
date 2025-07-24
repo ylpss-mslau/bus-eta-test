@@ -21,7 +21,7 @@ function showStops(lat, lng) {
   document.getElementById('location-info').innerHTML = `Latitude: ${lat.toFixed(6)}, Longitude: ${lng.toFixed(6)}`;
   stopMarkers.clearLayers();
   const stopList = document.getElementById('stop-list');
-  stopList.innerHTML = '<option value="">Select a stop</option>';
+  stopList.innerHTML = '<option value="">Click map or use GPS to find stops</option>';
 
   stopList.onchange = () => {
     const stopId = stopList.value;
