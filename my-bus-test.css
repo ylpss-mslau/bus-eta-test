@@ -71,6 +71,19 @@ h1 {
 .route-name {
   cursor: pointer;
   font-weight: bold;
+  position: relative;
+  padding-left: 20px;
+}
+
+.route-name::before {
+  content: '\25B6'; /* Right-pointing triangle */
+  position: absolute;
+  left: 0;
+  transition: transform 0.2s;
+}
+
+.route-name.expanded::before {
+  transform: rotate(90deg);
 }
 
 .route-name:hover {
