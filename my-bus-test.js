@@ -108,8 +108,18 @@ function showEta(stop) {
 
         for (const routeKey in etasByRoute) {
           const routeEl = document.createElement('li');
-          routeEl.innerHTML = `<b>${routeKey}</b>`;
+          const routeName = document.createElement('b');
+          routeName.className = 'route-name';
+          routeName.innerText = routeKey;
+          routeEl.appendChild(routeName);
+
           const subList = document.createElement('ul');
+          subList.style.display = 'none'; // Initially hidden
+
+          routeName.onclick = () => {
+            subList.style.display = subList.style.display === 'none' ? 'block' : 'none';
+          };
+
           etasByRoute[routeKey].forEach(etaString => {
             const eta = JSON.parse(etaString);
             const etaEl = document.createElement('li');
