@@ -35,12 +35,16 @@ body {
   padding: 0;
 }
 
+.route-list ul {
+  padding-left: 20px;
+}
+
 .route-list li {
-  margin-bottom: 0.8em;
-  padding: 0.5em;
+  margin-bottom: 0.2em;
+  padding: 0.2em;
   background-color: #f0f8ff;
-  border-radius: 5px;
-  border-left: 5px solid #005a8d;
+  border-radius: 3px;
+  border-left: 3px solid #005a8d;
 }
 
 

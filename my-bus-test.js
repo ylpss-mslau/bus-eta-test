@@ -94,13 +94,13 @@ function showEta(stop) {
           if (etaDate > now && etaDate < oneHourLater) {
             const routeKey = `${route.route} to ${route.dest_en}`;
             if (!etasByRoute[routeKey]) {
-              etasByRoute[routeKey] = [];
+              etasByRoute[routeKey] = new Set();
             }
             const waitingTime = Math.round((etaDate - now) / 60000);
-            etasByRoute[routeKey].push({
+            etasByRoute[routeKey].add(JSON.stringify({
               time: etaDate.toLocaleTimeString(),
               wait: waitingTime
-            });
+            }));
           }
         });
 
@@ -110,7 +110,8 @@ function showEta(stop) {
           const routeEl = document.createElement('li');
           routeEl.innerHTML = `<b>${routeKey}</b>`;
           const subList = document.createElement('ul');
-          etasByRoute[routeKey].forEach(eta => {
+          etasByRoute[routeKey].forEach(etaString => {
+            const eta = JSON.parse(etaString);
             const etaEl = document.createElement('li');
             etaEl.innerText = `${eta.time} (${eta.wait} minutes)`;
             subList.appendChild(etaEl);
